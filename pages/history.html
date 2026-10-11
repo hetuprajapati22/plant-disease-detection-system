@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="View your previous tomato disease detection results in TomatoGuard AI." />
+  <title>Detection History | TomatoGuard AI</title>
+
+  <!-- Yeh file pages/ folder ke andar hai, isliye ../ use hota hai -->
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+
+      <a href="../index.html" class="logo">
+        <span class="logo__icon">🍅</span>
+        <span class="logo__text">TomatoGuard <span class="logo__ai">AI</span></span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        ☰
+      </button>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="symptoms.html" class="nav-link">Detect Disease</a>
+        <a href="diseases.html" class="nav-link">Disease Information</a>
+        <a href="history.html" class="nav-link active">History</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="page-header">
+      <div class="container">
+        <span class="badge">📜 Your Records</span>
+        <h1 class="page-header__title">Detection History</h1>
+        <p class="page-header__text">
+          Review your previous symptom checks. Records are saved only in this
+          browser on your device.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= HISTORY SECTION ================= -->
+    <section class="section history">
+      <div class="container">
+
+        <!-- Stats cards (JavaScript numbers bharegi) -->
+        <div class="stats">
+          <div class="stat-card">
+            <p class="stat-card__number" id="statTotal">2</p>
+            <p class="stat-card__label">Total Checks</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__number" id="statDiseases">1</p>
+            <p class="stat-card__label">Problems Found</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__number" id="statHealthy">1</p>
+            <p class="stat-card__label">Healthy Results</p>
+          </div>
+        </div>
+
+        <!-- Toolbar: buttons -->
+        <div class="history-toolbar">
+          <h2 class="history-toolbar__title">All Records</h2>
+          <div class="history-toolbar__buttons">
+            <button type="button" class="btn btn--secondary btn--small" id="addDemoBtn">
+              Add Demo Records
+            </button>
+            <button type="button" class="btn btn--danger" id="clearHistoryBtn">
+              Clear History
+            </button>
+          </div>
+        </div>
+
+        <!-- Khaali history ka message (abhi hidden) -->
+        <div class="history-empty" id="historyEmpty" hidden>
+          <div class="history-empty__icon">📭</div>
+          <h2>No history yet</h2>
+          <p>Your detection results will appear here after you check your plant's symptoms.</p>
+          <a href="symptoms.html" class="btn btn--primary">Start Detection</a>
+        </div>
+
+        <!-- History table -->
+        <div class="history-table-wrap" id="historyContent">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Result</th>
+                <th>Match Score</th>
+                <th>Symptoms</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <!-- JavaScript yahan asli records bharegi (Step 14B) -->
+            <tbody id="historyBody">
+              <tr>
+                <td>1</td>
+                <td>October 8, 2026</td>
+                <td>Early Blight</td>
+                <td>96.8%</td>
+                <td>4</td>
+                <td>Detected</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>October 7, 2026</td>
+                <td>Healthy</td>
+                <td>98.2%</td>
+                <td>2</td>
+                <td>Healthy</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="history-note">
+          History is stored in your browser (localStorage). Clearing browser
+          data will also remove these records.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+
+      <div class="footer__brand">
+        <a href="../index.html" class="logo logo--footer">
+          <span class="logo__icon">🍅</span>
+          <span class="logo__text">TomatoGuard <span class="logo__ai">AI</span></span>
+        </a>
+        <p>AI-based tomato plant disease detection to support healthier crops.</p>
+      </div>
+
+      <div class="footer__links">
+        <h4>Quick Links</h4>
+        <a href="../index.html">Home</a>
+        <a href="symptoms.html">Detect Disease</a>
+        <a href="diseases.html">Disease Information</a>
+        <a href="history.html">History</a>
+        <a href="about.html">About</a>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; 2026 TomatoGuard AI. All rights reserved. College Project.</p>
+    </div>
+  </footer>
+
+  <!-- IMPORTANT: data.js pehle, script.js baad mein -->
+  <script src="../js/data.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>

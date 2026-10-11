@@ -1,0 +1,32 @@
+symptom,part,label
+lower_leaves_affected,Where it started,Problem started on the lower (older) leaves
+upper_new_leaves_affected,Where it started,Problem started on the upper (new) growth
+yellowing,Leaf,Leaves turning yellow
+small_brown_spots,Leaf,Small brown spots on leaves
+large_brown_blotches,Leaf,Large brown patches on leaves
+concentric_rings,Leaf,Spots with ring-like (target) pattern
+tan_gray_centers,Leaf,Spots with tan or gray centers
+yellow_halo,Leaf,Yellow ring around the spots
+water_soaked_lesions,Leaf,"Dark, water-soaked looking patches"
+white_growth_under_leaf,Leaf,White fuzzy growth under leaves
+olive_brown_mold_under_leaf,Leaf,Olive-brown velvety mold under leaves
+yellow_patches_upper_surface,Leaf,Pale yellow patches on the top of leaves
+leaf_holes,Leaf,Small holes in leaves
+leaf_curling,Leaf,Leaves curling or cupping
+leaf_mottling,Leaf,Light and dark green mottled (mosaic) pattern
+leaf_distortion,Leaf,"Narrow, twisted or fern-like leaves"
+fine_webbing,Leaf,Fine webbing on leaves or stems
+tiny_pale_stippling,Leaf,Tiny pale dots (stippling) on leaves
+leaves_bronze_or_dry,Leaf,"Leaves turning bronze, dry or crispy"
+stem_lesions,Stem,Dark spots or streaks on the stem
+fruit_lesions,Fruit,Spots or sunken patches on fruit
+fruit_firm_brown_patches,Fruit,Large firm brown patches on fruit
+fruit_scabby_spots,Fruit,"Raised, rough scabby spots on fruit"
+leaf_wilting,Whole plant,Leaves wilting or drooping
+leaf_drop,Whole plant,Leaves falling off
+stunted_growth,Whole plant,Plant growing slowly or stunted
+reduced_fruit_set,Whole plant,Few fruits or flowers dropping
+humid_wet_weather,Conditions,"Recent humid, rainy or wet weather"
+hot_dry_weather,Conditions,Recent hot and dry weather
+poor_air_circulation,Conditions,"Crowded plants, poor air flow or greenhouse"
+whiteflies_present,Conditions,Whiteflies seen on the plants

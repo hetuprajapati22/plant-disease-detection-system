@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TomatoGuard AI - symptom-based tomato plant disease detection system." />
+  <title>TomatoGuard AI | Tomato Plant Disease Detection</title>
+
+  <!-- index.html main folder mein hai, isliye path: css/style.css -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <span class="logo__icon">🍅</span>
+        <span class="logo__text">TomatoGuard <span class="logo__ai">AI</span></span>
+      </a>
+
+      <!-- Mobile menu button (JavaScript se baad mein kaam karega) -->
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        ☰
+      </button>
+
+      <!-- Navigation links -->
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="pages/symptoms.html" class="nav-link">Detect Disease</a>
+        <a href="pages/diseases.html" class="nav-link">Disease Information</a>
+        <a href="pages/history.html" class="nav-link">History</a>
+        <a href="pages/about.html" class="nav-link">About</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero">
+      <div class="container hero__inner">
+
+        <!-- Left side: text -->
+        <div class="hero__content">
+          <span class="badge">🌱 AI-Powered Plant Care</span>
+          <h1 class="hero__title">
+            Detect Tomato Plant Diseases <span class="highlight">Early with AI</span>
+          </h1>
+          <p class="hero__text">
+            Select the symptoms you notice on your tomato plant and get the
+            most likely diseases, along with simple care and prevention
+            suggestions to help protect your crop.
+          </p>
+          <div class="hero__buttons">
+            <a href="pages/symptoms.html" class="btn btn--primary">Check Symptoms</a>
+            <a href="pages/diseases.html" class="btn btn--secondary">Explore Diseases</a>
+          </div>
+        </div>
+
+        <!-- Right side: visual (abhi emoji se, baad mein image laga sakte hain) -->
+        <div class="hero__visual">
+          <div class="hero__circle">
+            <span class="hero__emoji">🍅</span>
+          </div>
+          <div class="float-card float-card--one">🍃 Symptoms Selected</div>
+          <div class="float-card float-card--two">✅ Top Match Found</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= FEATURES SECTION ================= -->
+    <section class="section features">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">Everything You Need for Healthier Plants</h2>
+          <p class="section__subtitle">
+            TomatoGuard AI brings detection, knowledge and care guidance together in one place.
+          </p>
+        </div>
+
+        <div class="grid grid--4">
+          <article class="card feature-card">
+            <div class="feature-card__icon">🩺</div>
+            <h3>Symptom-Based Detection</h3>
+            <p>Choose the symptoms you see and find the diseases that match best.</p>
+          </article>
+
+          <article class="card feature-card">
+            <div class="feature-card__icon">🍅</div>
+            <h3>Disease Information</h3>
+            <p>Learn about symptoms, causes and prevention of common tomato diseases.</p>
+          </article>
+
+          <article class="card feature-card">
+            <div class="feature-card__icon">💊</div>
+            <h3>Care Suggestions</h3>
+            <p>Get basic, easy-to-follow care tips based on the detected result.</p>
+          </article>
+
+          <article class="card feature-card">
+            <div class="feature-card__icon">📜</div>
+            <h3>Detection History</h3>
+            <p>Keep a record of your previous detections and review them anytime.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS SECTION ================= -->
+    <section class="section how-it-works">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">How It Works</h2>
+          <p class="section__subtitle">Four simple steps from symptoms to care advice.</p>
+        </div>
+
+        <div class="grid grid--4">
+          <div class="step">
+            <div class="step__number">1</div>
+            <h3>Select Symptoms</h3>
+            <p>Tick the symptoms you can see on the leaves, stem, fruit or plant.</p>
+          </div>
+
+          <div class="step">
+            <div class="step__number">2</div>
+            <h3>AI Analysis</h3>
+            <p>Your symptoms are compared with a tomato disease symptom dataset.</p>
+          </div>
+
+          <div class="step">
+            <div class="step__number">3</div>
+            <h3>Get Disease Result</h3>
+            <p>See the most likely disease along with a confidence score.</p>
+          </div>
+
+          <div class="step">
+            <div class="step__number">4</div>
+            <h3>View Care Suggestions</h3>
+            <p>Read symptoms, prevention and basic care recommendations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT / CTA SECTION ================= -->
+    <section class="section cta">
+      <div class="container">
+        <div class="cta__box">
+          <h2>Ready to Check Your Tomato Plant?</h2>
+          <p>
+            TomatoGuard AI is a college project that shows how artificial
+            intelligence can support farmers and gardeners in spotting plant
+            problems early.
+          </p>
+          <div class="cta__buttons">
+            <a href="pages/symptoms.html" class="btn btn--light">Start Detection</a>
+            <a href="pages/about.html" class="btn btn--outline-light">Learn About the Project</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+
+      <div class="footer__brand">
+        <a href="index.html" class="logo logo--footer">
+          <span class="logo__icon">🍅</span>
+          <span class="logo__text">TomatoGuard <span class="logo__ai">AI</span></span>
+        </a>
+        <p>AI-based tomato plant disease detection to support healthier crops.</p>
+      </div>
+
+      <div class="footer__links">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="pages/symptoms.html">Detect Disease</a>
+        <a href="pages/diseases.html">Disease Information</a>
+        <a href="pages/history.html">History</a>
+        <a href="pages/about.html">About</a>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; 2026 TomatoGuard AI. All rights reserved. College Project.</p>
+    </div>
+  </footer>
+
+     <script src="js/data.js"></script>
+  <!-- JavaScript file ka link (page ke end mein lagate hain) -->
+  <script src="js/script.js"></script>
+</body>
+</html>

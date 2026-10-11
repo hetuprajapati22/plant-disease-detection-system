@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="View the symptom-based tomato disease detection result." />
+  <title>Detection Result | TomatoGuard AI</title>
+
+  <!-- Yeh file pages/ folder ke andar hai, isliye ../ use hota hai -->
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+
+      <a href="../index.html" class="logo">
+        <span class="logo__icon">🍅</span>
+        <span class="logo__text">TomatoGuard <span class="logo__ai">AI</span></span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        ☰
+      </button>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="symptoms.html" class="nav-link active">Detect Disease</a>
+        <a href="diseases.html" class="nav-link">Disease Information</a>
+        <a href="history.html" class="nav-link">History</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="page-header">
+      <div class="container">
+        <span class="badge">📋 Detection Report</span>
+        <h1 class="page-header__title">Detection Result</h1>
+        <p class="page-header__text">
+          Here is what the symptoms you selected point to.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= RESULT SECTION ================= -->
+    <section class="section result">
+      <div class="container">
+
+        <!-- Agar koi result nahi mila (direct page khola) to yeh dikhega. Abhi hidden hai -->
+        <div class="no-result" id="noResult" hidden>
+          <div class="no-result__icon">🍃</div>
+          <h2>No result to show yet</h2>
+          <p>Please select your plant's symptoms first to see a detection result.</p>
+          <a href="symptoms.html" class="btn btn--primary">Go to Detection</a>
+        </div>
+
+        <!-- Main result card -->
+        <div class="result-card" id="resultCard">
+
+          <!-- Top part: disease name + confidence -->
+          <div class="result-card__top">
+
+            <div class="result-card__summary">
+              <span class="status-badge" id="statusBadge">Disease Detected</span>
+              <h2 class="result-card__disease" id="diseaseName">Early Blight</h2>
+
+              <p class="confidence__label">
+                Match Score: <strong id="confidenceValue">59.5%</strong>
+              </p>
+              <div class="progress" aria-label="Match score">
+                <div class="progress__bar" id="confidenceBar" style="width: 59.5%;"></div>
+              </div>
+
+              <p class="result-card__description" id="diseaseDescription">
+                Early blight is a common fungal disease of tomato plants. It
+                usually starts on older, lower leaves and can slowly spread upward.
+              </p>
+
+              <p class="result-card__meta">
+                Analyzed on: <span id="analysisDate">October 10, 2026</span>
+              </p>
+            </div>
+
+            <!-- Selected symptoms -->
+            <div class="result-card__symptoms">
+              <h3>✅ Symptoms You Selected</h3>
+              <ul class="symptom-tags" id="selectedSymptoms">
+                <li>Problem started on the lower (older) leaves</li>
+                <li>Spots with ring-like (target) pattern</li>
+                <li>Yellow ring around the spots</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Other possible matches -->
+          <div class="other-matches">
+            <h3>Other Possible Matches</h3>
+            <div id="otherMatches">
+              <div class="other-match">
+                <span class="other-match__name">Target Spot</span>
+                <span class="other-match__percent">36.5%</span>
+              </div>
+              <div class="other-match">
+                <span class="other-match__name">Septoria Leaf Spot</span>
+                <span class="other-match__percent">2.8%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Details grid: symptoms, causes, prevention, care -->
+          <div class="result-details">
+
+            <div class="detail-box">
+              <h3>🔍 Common Symptoms</h3>
+              <ul id="symptomsList">
+                <li>Dark brown spots on older leaves</li>
+                <li>Ring-like (target) pattern inside the spots</li>
+                <li>Yellowing around the spots</li>
+              </ul>
+            </div>
+
+            <div class="detail-box">
+              <h3>⚠️ Possible Causes</h3>
+              <ul id="causesList">
+                <li>Fungal infection</li>
+                <li>Warm and humid weather</li>
+                <li>Infected plant debris in the soil</li>
+              </ul>
+            </div>
+
+            <div class="detail-box">
+              <h3>🛡️ Prevention</h3>
+              <ul id="preventionList">
+                <li>Rotate crops every season</li>
+                <li>Avoid wetting the leaves while watering</li>
+                <li>Keep enough space between plants</li>
+              </ul>
+            </div>
+
+            <div class="detail-box">
+              <h3>💊 Basic Care Suggestions</h3>
+              <ul id="careList">
+                <li>Remove and dispose of badly affected leaves</li>
+                <li>Improve air circulation around plants</li>
+                <li>Ask a local agriculture expert about suitable treatment</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Disclaimer -->
+          <div class="disclaimer">
+            <strong>⚠️ Disclaimer:</strong> This is an AI-assisted identification
+            based on a sample symptom dataset and may not always be correct. It
+            should not replace advice from a qualified agricultural expert.
+          </div>
+
+          <!-- Action buttons -->
+          <div class="result-actions">
+            <a href="symptoms.html" class="btn btn--primary">Check Again</a>
+            <a href="diseases.html" class="btn btn--secondary">View Disease Information</a>
+            <a href="history.html" class="btn btn--secondary">View History</a>
+            <button type="button" class="btn btn--secondary" id="printBtn">Print Report</button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+
+      <div class="footer__brand">
+        <a href="../index.html" class="logo logo--footer">
+          <span class="logo__icon">🍅</span>
+          <span class="logo__text">TomatoGuard <span class="logo__ai">AI</span></span>
+        </a>
+        <p>AI-based tomato plant disease detection to support healthier crops.</p>
+      </div>
+
+      <div class="footer__links">
+        <h4>Quick Links</h4>
+        <a href="../index.html">Home</a>
+        <a href="symptoms.html">Detect Disease</a>
+        <a href="diseases.html">Disease Information</a>
+        <a href="history.html">History</a>
+        <a href="about.html">About</a>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; 2026 TomatoGuard AI. All rights reserved. College Project.</p>
+    </div>
+  </footer>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>

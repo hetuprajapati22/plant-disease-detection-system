@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Learn about common tomato plant diseases, their symptoms, causes, prevention and basic care." />
+  <title>Disease Information | TomatoGuard AI</title>
+
+  <!-- Yeh file pages/ folder ke andar hai, isliye ../ use hota hai -->
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+
+      <a href="../index.html" class="logo">
+        <span class="logo__icon">🍅</span>
+        <span class="logo__text">TomatoGuard <span class="logo__ai">AI</span></span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        ☰
+      </button>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="symptoms.html" class="nav-link">Detect Disease</a>
+        <a href="diseases.html" class="nav-link active">Disease Information</a>
+        <a href="history.html" class="nav-link">History</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="page-header">
+      <div class="container">
+        <span class="badge">🩺 Learn &amp; Prevent</span>
+        <h1 class="page-header__title">Tomato Disease Information</h1>
+        <p class="page-header__text">
+          Explore common tomato plant problems. Click any card to read its
+          symptoms, causes, prevention and basic care.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= DISEASES SECTION ================= -->
+    <section class="section diseases">
+      <div class="container">
+
+        <!-- Filter buttons (JavaScript inko control karegi) -->
+        <div class="filter-bar" id="filterBar">
+          <button type="button" class="filter-btn active" data-filter="all">All</button>
+          <button type="button" class="filter-btn" data-filter="disease">Diseases</button>
+          <button type="button" class="filter-btn" data-filter="pest">Pests</button>
+          <button type="button" class="filter-btn" data-filter="healthy">Healthy</button>
+        </div>
+
+        <!-- JavaScript yahan 10 cards banayegi (Step 12) -->
+        <div class="disease-grid" id="diseaseGrid">
+          <p class="disease-grid__loading">Loading diseases...</p>
+        </div>
+
+        <p class="disease-note">
+          This information is general and educational. For treatment advice,
+          please contact a qualified agriculture expert.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= DETAIL POPUP (card par click karne par khulega) ================= -->
+  <div class="modal" id="diseaseModal" hidden>
+    <div class="modal__overlay" id="modalOverlay"></div>
+
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button type="button" class="modal__close" id="modalClose" aria-label="Close details">✕</button>
+
+      <span class="status-badge" id="modalStatus">Disease</span>
+      <h2 class="modal__title" id="modalTitle">Disease Name</h2>
+      <p class="modal__description" id="modalDescription">Description</p>
+
+      <div class="modal__grid">
+        <div class="detail-box">
+          <h3>🔍 Common Symptoms</h3>
+          <ul id="modalSymptoms"></ul>
+        </div>
+
+        <div class="detail-box">
+          <h3>⚠️ Possible Causes</h3>
+          <ul id="modalCauses"></ul>
+        </div>
+
+        <div class="detail-box">
+          <h3>🛡️ Prevention</h3>
+          <ul id="modalPrevention"></ul>
+        </div>
+
+        <div class="detail-box">
+          <h3>💊 Basic Care</h3>
+          <ul id="modalCare"></ul>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <strong>⚠️ Disclaimer:</strong> This is general, educational information.
+        Please consult a qualified agricultural expert for treatment advice.
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+
+      <div class="footer__brand">
+        <a href="../index.html" class="logo logo--footer">
+          <span class="logo__icon">🍅</span>
+          <span class="logo__text">TomatoGuard <span class="logo__ai">AI</span></span>
+        </a>
+        <p>AI-based tomato plant disease detection to support healthier crops.</p>
+      </div>
+
+      <div class="footer__links">
+        <h4>Quick Links</h4>
+        <a href="../index.html">Home</a>
+        <a href="symptoms.html">Detect Disease</a>
+        <a href="diseases.html">Disease Information</a>
+        <a href="history.html">History</a>
+        <a href="about.html">About</a>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; 2026 TomatoGuard AI. All rights reserved. College Project.</p>
+    </div>
+  </footer>
+
+  <!-- IMPORTANT: data.js pehle, script.js baad mein -->
+  <script src="../js/data.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>

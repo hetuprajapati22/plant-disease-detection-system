@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Select the symptoms you see on your tomato plant and find possible diseases with TomatoGuard AI." />
+  <title>Detect Disease | TomatoGuard AI</title>
+
+  <!-- Yeh file pages/ folder ke andar hai, isliye ../ se ek folder peeche jaate hain -->
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container navbar__inner">
+
+      <a href="../index.html" class="logo">
+        <span class="logo__icon">🍅</span>
+        <span class="logo__text">TomatoGuard <span class="logo__ai">AI</span></span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        ☰
+      </button>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="symptoms.html" class="nav-link active">Detect Disease</a>
+        <a href="diseases.html" class="nav-link">Disease Information</a>
+        <a href="history.html" class="nav-link">History</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="page-header">
+      <div class="container">
+        <span class="badge">🩺 Symptom Based Detection</span>
+        <h1 class="page-header__title">Tomato Disease Detection</h1>
+        <p class="page-header__text">
+          Select all the symptoms you can see on your tomato plant. We will
+          show the diseases that match best, along with simple care suggestions.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= SYMPTOM CHECKER SECTION ================= -->
+    <section class="section checker">
+      <div class="container checker__layout">
+
+        <!-- Left: symptom selection card -->
+        <div class="checker-card">
+
+          <div class="checker-card__top">
+            <h2 class="checker-card__title">Select Symptoms</h2>
+            <p class="checker-card__count">
+              Selected: <strong id="selectedCount">0</strong>
+            </p>
+          </div>
+
+          <!-- Error message area (JS yahan error dikhayegi) -->
+          <div class="error-message" id="symptomError" role="alert" hidden></div>
+
+          <!-- JavaScript yahan 31 symptoms ki checkboxes banayegi (Step 8) -->
+          <div class="symptom-groups" id="symptomGroups">
+            <p class="symptom-groups__loading">Loading symptoms...</p>
+          </div>
+
+          <!-- Buttons -->
+          <div class="checker-actions">
+            <button type="button" class="btn btn--primary" id="checkBtn">
+              Check Symptoms
+            </button>
+            <button type="button" class="btn btn--secondary" id="resetBtn">
+              Reset
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right: result area -->
+        <aside class="checker-results" id="symptomResults">
+
+          <!-- Result aane se pehle yeh message dikhega -->
+          <div class="checker-results__empty" id="resultsEmpty">
+            <div class="checker-results__icon">🍃</div>
+            <h2>Your results will appear here</h2>
+            <p>Select a few symptoms and click <strong>Check Symptoms</strong>.</p>
+          </div>
+
+          <!-- Result aane ke baad yeh dikhega (abhi hidden) -->
+          <div class="checker-results__content" id="resultsContent" hidden>
+            <h2 class="checker-results__title">Possible Matches</h2>
+            <div id="resultList"></div>
+
+            <div class="disclaimer">
+              <strong>⚠️ Disclaimer:</strong> These results are based on a
+              sample symptom dataset and are for learning and guidance only.
+              They may not be correct. Please consult a qualified agricultural
+              expert for a proper diagnosis.
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+
+      <div class="footer__brand">
+        <a href="../index.html" class="logo logo--footer">
+          <span class="logo__icon">🍅</span>
+          <span class="logo__text">TomatoGuard <span class="logo__ai">AI</span></span>
+        </a>
+        <p>AI-based tomato plant disease detection to support healthier crops.</p>
+      </div>
+
+      <div class="footer__links">
+        <h4>Quick Links</h4>
+        <a href="../index.html">Home</a>
+        <a href="symptoms.html">Detect Disease</a>
+        <a href="diseases.html">Disease Information</a>
+        <a href="history.html">History</a>
+        <a href="about.html">About</a>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; 2026 TomatoGuard AI. All rights reserved. College Project.</p>
+    </div>
+  </footer>
+
+  <!-- IMPORTANT: data.js pehle, script.js baad mein -->
+  <script src="../js/data.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>
