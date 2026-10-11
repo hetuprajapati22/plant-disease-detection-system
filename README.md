@@ -1,30 +1,30 @@
 # 🍅 TomatoGuard AI
 
-Symptom-based tomato plant disease detection system (college project).
+**AI-Based Tomato Plant Disease Detection and Prediction System**
 
-The user selects the symptoms seen on a tomato plant, and the website shows the most likely disease or pest, a match score, care suggestions, a printable report and a detection history.
+TomatoGuard AI is a college project focused on tomato plant disease detection using symptom-based prediction. Users select visible symptoms on a tomato plant, and the website displays possible diseases or pests, a match score, care suggestions, a printable report, and detection history.
 
-**Current status:** the frontend is complete (HTML, CSS, vanilla JavaScript). The scoring in the frontend is only a **demo logic**. The real AI model and the database will be added by the team using this guide.
+**Current status:** The frontend is built using HTML, CSS, and vanilla JavaScript. The current prediction scoring is demo logic, not a trained AI model. The team will integrate the real machine learning model and database later.
 
 ---
 
-## 1. Project structure
+## 1. Project Structure
 
-```
+```text
 TomatoGuard-AI/
 ├── index.html
 ├── README.md
 ├── pages/
-│   ├── symptoms.html      (Detect Disease page)
-│   ├── result.html        (Detection report)
-│   ├── diseases.html      (Disease information)
-│   ├── history.html       (Detection history)
+│   ├── symptoms.html
+│   ├── result.html
+│   ├── diseases.html
+│   ├── history.html
 │   └── about.html
 ├── css/
 │   └── style.css
 ├── js/
-│   ├── data.js            (symptoms, demo probabilities, disease information)
-│   └── script.js          (all frontend logic)
+│   ├── data.js
+│   └── script.js
 ├── dataset/
 │   ├── symptom_schema.csv
 │   ├── symptom_knowledge_table.csv
@@ -34,176 +34,203 @@ TomatoGuard-AI/
     └── icons/
 ```
 
-**How to run the frontend:** open the folder in VS Code, right-click `index.html` and choose **Open with Live Server**. No installation is needed.
+**Important:** Do not rename existing files, folders, or HTML element IDs without coordinating with the team, because the JavaScript depends on them.
 
-**Please do not rename files, folders or HTML ids.** The JavaScript finds elements by their ids.
+### How to Run the Frontend
 
----
+1. Open the project folder in VS Code.
+2. Install the Live Server extension if it is not already installed.
+3. Right-click `index.html`.
+4. Select **Open with Live Server**.
 
-## 2. How the frontend works (data flow)
-
-```
-symptoms.html
-   user ticks symptoms  ->  selectedIds = ["concentric_rings", "yellow_halo", ...]
-        |
-        v
-calculateMatches(selectedIds)        <- script.js, section 5  (REPLACE THIS WITH THE REAL MODEL)
-        |
-        v
-matches = [ { name, percent, matchedCount }, ... ]
-        |
-        +--> showResults(...)        shows the top 3 on the same page
-        +--> saveLastResult(...)     localStorage "tomatoguard_last_result"  -> result.html reads it
-        +--> addToHistory(...)       localStorage "tomatoguard_history"      -> history.html reads it
-```
+The frontend can run without Flask or MySQL. These are needed later for backend integration.
 
 ---
 
-## 3. Where to plug in the AI model
+## 2. Frontend Data Flow
+
+The symptom checker currently uses demo logic.
+
+1. The user opens `pages/symptoms.html`.
+2. The user selects visible symptoms.
+3. `js/script.js` collects the selected symptom IDs.
+4. `calculateMatches(selectedIds)` calculates demo matches.
+5. `showResults()` displays the top results.
+6. `saveLastResult()` saves the latest result in browser `localStorage`.
+7. `addToHistory()` saves a history record in browser `localStorage`.
+
+The result page reads the saved result, and the history page reads the saved detection records.
+
+**Future integration:** Replace the demo prediction function with a request to the Flask API.
+
+---
+
+## 3. AI Model Integration Plan
 
 ### 3.1 Input
 
-A list of the selected symptom ids. The 31 ids and their order are in `dataset/symptom_schema.csv` (the same order as `SYMPTOMS` in `js/data.js`).
+The frontend will send selected symptom IDs to the backend.
 
-```json
-{ "symptoms": ["lower_leaves_affected", "concentric_rings", "yellow_halo"] }
-```
-
-For a model trained on the CSV, convert it into a vector of 31 values (1 if selected, otherwise 0), in the same column order as the dataset.
-
-### 3.2 Output (this exact format is required)
-
-A list for **all 10 classes**, sorted from the highest to the lowest `percent`.
+Example request:
 
 ```json
 {
-  "matches": [
-    { "name": "Early Blight", "percent": 59.5 },
-    { "name": "Target Spot", "percent": 36.5 },
-    { "name": "Septoria Leaf Spot", "percent": 2.8 }
+  "symptoms": [
+    "lower_leaves_affected",
+    "concentric_rings",
+    "yellow_halo"
   ]
 }
 ```
 
-Rules:
+The symptom schema contains 31 symptom IDs. A model trained on the CSV dataset must receive a 31-value vector in the exact feature order used during training. Each value represents whether a symptom is selected: `1` for selected and `0` for not selected.
 
-- `percent` is a number from 0 to 100 (not 0 to 1).
-- `name` must match **exactly** one of these 10 names, because they are the keys of `DISEASE_INFO` in `js/data.js`:
+### 3.2 Required API Response
 
-  Early Blight, Late Blight, Septoria Leaf Spot, Bacterial Spot, Leaf Mold, Spider Mites, Target Spot, Yellow Leaf Curl Virus, Mosaic Virus, Healthy
+The backend should return a JSON object containing the predicted matches, sorted from highest to lowest score.
 
-  If the labels in the dataset or model are different, map them to these names in the backend.
-- The result page, history and cards all depend on these names.
+```json
+{
+  "matches": [
+    {
+      "name": "Early Blight",
+      "percent": 59.5
+    },
+    {
+      "name": "Target Spot",
+      "percent": 36.5
+    },
+    {
+      "name": "Septoria Leaf Spot",
+      "percent": 2.8
+    }
+  ]
+}
+```
 
-### 3.3 Flask example (backend side)
+The names must exactly match the disease keys used by `DISEASE_INFO` in `js/data.js`.
+
+Supported names:
+
+- Early Blight
+- Late Blight
+- Septoria Leaf Spot
+- Bacterial Spot
+- Leaf Mold
+- Spider Mites
+- Target Spot
+- Yellow Leaf Curl Virus
+- Mosaic Virus
+- Healthy
+
+The `percent` field must be a number between 0 and 100. If the model returns probabilities between 0 and 1, convert them to percentages before sending the response.
+
+**Important:** A model's predicted probability or match score is not a guarantee of diagnostic accuracy.
+
+### 3.3 Planned Flask API
+
+The prediction endpoint will be:
+
+`POST /api/predict`
+
+Example backend outline:
 
 ```python
 from flask import Flask, request, jsonify
-from flask_cors import CORS   # pip install flask-cors
 
 app = Flask(__name__)
-CORS(app)  # needed because the frontend runs on another port (Live Server, 5500)
 
-# SYMPTOM_IDS = list of the 31 ids in the same order as symptom_schema.csv
-# model = your trained model (loaded once at startup)
+# Load the trained model and symptom IDs here.
+# SYMPTOM_IDS must use the exact feature order from training.
 
 @app.route("/api/predict", methods=["POST"])
 def predict():
-    selected = request.get_json().get("symptoms", [])
-    vector = [1 if s in selected else 0 for s in SYMPTOM_IDS]
+    data = request.get_json(silent=True) or {}
+    selected = data.get("symptoms", [])
+
+    if not isinstance(selected, list):
+        return jsonify({"error": "symptoms must be a list"}), 400
+
+    if not all(isinstance(item, str) for item in selected):
+        return jsonify({"error": "Invalid symptom IDs"}), 400
+
+    vector = [
+        1 if symptom in selected else 0
+        for symptom in SYMPTOM_IDS
+    ]
 
     probabilities = model.predict_proba([vector])[0]
+
     matches = [
-        {"name": name, "percent": round(float(p) * 100, 1)}
-        for name, p in zip(model.classes_, probabilities)
+        {
+            "name": CLASS_NAME_MAP[class_name],
+            "percent": round(float(probability) * 100, 1)
+        }
+        for class_name, probability
+        in zip(model.classes_, probabilities)
     ]
-    matches.sort(key=lambda m: m["percent"], reverse=True)
+
+    matches.sort(
+        key=lambda item: item["percent"],
+        reverse=True
+    )
 
     return jsonify({"matches": matches})
+
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
 ```
 
-### 3.4 Frontend change (js/script.js)
+This is an integration outline, not a complete runnable backend. The model, `SYMPTOM_IDS`, and `CLASS_NAME_MAP` must be defined and loaded before the endpoint can work.
 
-Right now `checkSymptoms()` (inside `setupSymptomChecker`) calls `calculateMatches(selectedIds)` directly. A real API call is asynchronous, so make these two changes.
+### 3.4 Planned Frontend API Connection
 
-**Step 1:** add this function near `calculateMatches`:
+The frontend API URL for local development will be:
 
-```js
+```javascript
 const API_URL = "http://127.0.0.1:5000/api/predict";
+```
 
-async function getMatches(selectedIds) {
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ symptoms: selectedIds })
-  });
-  if (!response.ok) throw new Error("Server error");
+The function that checks symptoms will eventually call the API asynchronously:
 
-  const data = await response.json();
+```javascript
+const response = await fetch(API_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    symptoms: selectedIds
+  })
+});
 
-  // matchedCount is used by the small note under each result card.
-  // It is calculated here from DISEASE_PROFILES, so keep DISEASE_PROFILES in data.js.
-  return data.matches.map(function (match) {
-    const profile = DISEASE_PROFILES.find(function (item) {
-      return item.name === match.name;
-    });
-    let matchedCount = 0;
-    if (profile) {
-      selectedIds.forEach(function (id) {
-        if (profile.p[id] >= GOOD_MATCH_LEVEL) matchedCount++;
-      });
-    }
-    return { name: match.name, percent: match.percent, matchedCount: matchedCount };
-  });
+if (!response.ok) {
+  throw new Error("Prediction request failed");
 }
+
+const data = await response.json();
 ```
 
-**Step 2:** change `checkSymptoms` to `async` and call the API:
-
-```js
-  async function checkSymptoms() {
-    const selectedIds = getSelectedIds();
-
-    if (selectedIds.length < MIN_SYMPTOMS) {
-      showError("Please select at least " + MIN_SYMPTOMS + " symptoms to get a result.");
-      return;
-    }
-
-    hideError();
-
-    try {
-      const matches = await getMatches(selectedIds);   // was: calculateMatches(selectedIds)
-      showResults(matches, selectedIds.length);
-      saveLastResult(selectedIds, matches);
-      addToHistory(selectedIds, matches);
-    } catch (error) {
-      showError("Could not reach the server. Please try again.");
-    }
-  }
-```
-
-Optional: show a loading state on the Check button while waiting for the server.
+The complete integration must preserve the response format expected by the result cards, result page, and history functions. If the frontend runs on a different port, configure Flask CORS appropriately.
 
 ---
 
-## 4. Where to plug in the database (MySQL)
+## 4. MySQL Database Integration Plan
 
-All history data goes through only these functions in `js/script.js` (section 8):
+The frontend currently stores detection history in browser `localStorage`. The backend team can later replace this with MySQL-backed API endpoints.
 
-| Function | What it does now | Replace with |
-|---|---|---|
-| `getHistory()` | reads from localStorage | `GET /api/history` |
-| `addToHistory(selectedIds, matches)` | adds a record to localStorage | `POST /api/history` |
-| `saveHistory([])` (used by Clear History) | overwrites localStorage | `DELETE /api/history` |
+| Current frontend function | Planned backend endpoint |
+|---|---|
+| `getHistory()` | `GET /api/history` |
+| `addToHistory(selectedIds, matches)` | `POST /api/history` |
+| Clear History | `DELETE /api/history` |
 
-One history record looks like this:
+Example history record:
 
 ```json
 {
-  "id": 1730000000000,
+  "id": 1,
   "date": "2026-10-10T10:30:00.000Z",
   "result": "Early Blight",
   "percent": 59.5,
@@ -212,49 +239,70 @@ One history record looks like this:
 }
 ```
 
-- `status` is one of `"disease"`, `"pest"` or `"healthy"`.
-- `date` should be an ISO date string.
-- The `demo` field only exists for the frontend "Add Demo Records" button. It can be removed later.
+The `status` value should be one of `disease`, `pest`, or `healthy`.
 
 Suggested MySQL table:
 
 ```sql
 CREATE TABLE detection_history (
-  id            INT AUTO_INCREMENT PRIMARY KEY,
-  created_at    DATETIME NOT NULL,
-  result        VARCHAR(50) NOT NULL,
-  percent       DECIMAL(5,2) NOT NULL,
-  symptom_count INT NOT NULL,
-  status        ENUM('disease','pest','healthy') NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    created_at DATETIME NOT NULL,
+    result VARCHAR(50) NOT NULL,
+    percent DECIMAL(5,2) NOT NULL,
+    symptom_count INT NOT NULL,
+    status ENUM('disease', 'pest', 'healthy') NOT NULL
 );
 ```
 
-**Note:** `getHistory()` and `saveHistory()` are synchronous now. With an API they become `async`, so `setupHistoryPage()` and its `renderHistory()` must use `await`. The result page reads `tomatoguard_last_result` from localStorage. This can stay as it is, or be replaced later by an API.
+When history is moved to an API, the frontend history functions will need asynchronous handling using `async` and `await`.
 
 ---
 
-## 5. What stays and what can be removed after the model is added
+## 5. Files to Keep During AI Integration
 
-| File / code | After integration |
+| File or function | Purpose |
 |---|---|
-| `SYMPTOMS` in `data.js` | **Keep** (builds the checkboxes) |
-| `DISEASE_INFO` in `data.js` | **Keep** (description, causes, prevention, care) |
-| `DISEASE_PROFILES` in `data.js` | Keep if you use `matchedCount` as shown above. Otherwise it can be removed together with `calculateMatches()` |
-| `calculateMatches()` in `script.js` | Replaced by the real model |
-| Everything else | No change needed |
+| `SYMPTOMS` in `data.js` | Builds the symptom selection interface |
+| `DISEASE_INFO` in `data.js` | Stores disease descriptions and care information |
+| `DISEASE_PROFILES` in `data.js` | Supports the current demo scoring and match-count display |
+| `calculateMatches()` in `script.js` | Current demo prediction logic; replace when the real model is integrated |
+| `showResults()` | Displays prediction results |
+| `saveLastResult()` | Saves the latest result for the result page |
+| `addToHistory()` | Adds detection history records |
+
+Avoid removing existing functions until the integrated backend has been tested with every frontend page that depends on them.
 
 ---
 
-## 6. About the dataset
+## 6. Dataset Information
 
-- `symptom_schema.csv`: 31 symptoms, grouped by plant part
-- `symptom_knowledge_table.csv`: probability of each symptom for each of the 10 classes (used for the demo scoring)
-- `tomato_symptom_dataset_v2.csv`: 3000 records (300 per class), one column per symptom (0 or 1) plus the disease label
+The project currently contains three CSV files:
 
-This looks like a **generated sample dataset**, not real field data. A model trained on it will probably show very high accuracy. Please mention this honestly in the project report.
+- `symptom_schema.csv` — the symptom IDs and their grouping.
+- `symptom_knowledge_table.csv` — symptom probabilities used for demo scoring.
+- `tomato_symptom_dataset_v2.csv` — a sample dataset described as containing 3,000 records across 10 classes.
+
+The dataset appears to be generated sample data rather than verified real-world field observations. Its contents and labels should be checked before training a model.
+
+A model trained and tested on generated data may achieve a high score without performing well on real tomato plants. Evaluate it on a separate test set and, when possible, independently collected and verified images or symptom records.
+
+**Do not claim 99–100% real-world accuracy unless rigorous testing on representative, independent data supports that claim.**
 
 ---
 
-## 7. Disclaimer
+## 7. Recommended Team Workflow
 
-TomatoGuard AI is a college project. Its results are AI-assisted guidance only and should not replace advice from a qualified agricultural expert.
+1. Keep the existing frontend file names and element IDs stable.
+2. Develop the Flask API separately from the frontend.
+3. Verify the dataset's labels, feature order, and quality before training.
+4. Test prediction responses against the required JSON format.
+5. Integrate MySQL after the prediction API works.
+6. Test the complete website before merging team members' changes into the main branch.
+
+Use Git branches and pull requests where practical, and avoid overwriting another team member's work.
+
+---
+
+## 8. Disclaimer
+
+TomatoGuard AI is a college project intended for educational purposes. Its predictions and care suggestions are AI-assisted guidance only and should not replace advice from a qualified agricultural expert.
